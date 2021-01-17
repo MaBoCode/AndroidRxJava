@@ -64,7 +64,7 @@ public class MainFragment extends BaseFragment {
 
         initObservers();
 
-        Long userId = 1;
+        Long userId = Long.valueOf(1);
         viewModel.getUser(userId);
 
         viewModel.getUsers();
@@ -74,7 +74,7 @@ public class MainFragment extends BaseFragment {
 
     public void initObservers() {
 
-        viewModel.userLiveData.observe(this, new Observer<User>() {
+        viewModel.userLiveData.observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 binding.setUser(user);
@@ -82,7 +82,7 @@ public class MainFragment extends BaseFragment {
             }
         });
 
-        viewModel.usersLiveData.observe(this, new Observer<List<User>>() {
+        viewModel.usersLiveData.observe(getViewLifecycleOwner(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
                 String usersCount = String.format("%s users", users.size());
@@ -94,7 +94,7 @@ public class MainFragment extends BaseFragment {
             }
         });
 
-        viewModel.loadingLiveData.observe(this, new Observer<LoadingStatus>() {
+        viewModel.loadingLiveData.observe(getViewLifecycleOwner(), new Observer<LoadingStatus>() {
             @Override
             public void onChanged(LoadingStatus status) {
                 int visiblity = status == LoadingStatus.LOADING ? View.VISIBLE : View.GONE;

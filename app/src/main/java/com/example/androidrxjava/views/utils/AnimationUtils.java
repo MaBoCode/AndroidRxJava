@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -115,6 +116,8 @@ public class AnimationUtils {
 
             List<Animator> animators = new ArrayList<>();
             for (Object object: objects) {
+                View view = (View) object;
+
                 ObjectAnimator alpha = null;
                 float begin = -1f, end = -1f;
 
@@ -127,7 +130,7 @@ public class AnimationUtils {
                 }
 
                 if (begin != -1f && end != -1f) {
-                    alpha = ObjectAnimator.ofFloat(object, "alpha", begin, end);
+                    alpha = ObjectAnimator.ofFloat(view, "alpha", begin, end);
                     animators.add(alpha);
                 }
 
@@ -143,19 +146,19 @@ public class AnimationUtils {
                 }
 
                 if (begin != -1f && end != -1f) {
-                    scaleX = ObjectAnimator.ofFloat(object, "scaleX", begin, end);
-                    scaleY = ObjectAnimator.ofFloat(object, "scaleY", begin, end);
+                    scaleX = ObjectAnimator.ofFloat(view, "scaleX", begin, end);
+                    scaleY = ObjectAnimator.ofFloat(view, "scaleY", begin, end);
                     animators.add(scaleX);
                     animators.add(scaleY);
                 }
 
                 if (translationYBegin != 0f || translationYEnd != 0f) {
-                    ObjectAnimator translateY = ObjectAnimator.ofFloat(object, "translationY", translationYBegin, translationYEnd);
+                    ObjectAnimator translateY = ObjectAnimator.ofFloat(view, "translationY", translationYBegin, translationYEnd);
                     animators.add(translateY);
                 }
 
                 if (translationXBegin != 0f || translationXEnd != 0f) {
-                    ObjectAnimator translateX = ObjectAnimator.ofFloat(object, "translationX", translationXBegin, translationXEnd);
+                    ObjectAnimator translateX = ObjectAnimator.ofFloat(view, "translationX", translationXBegin, translationXEnd);
                     animators.add(translateX);
                 }
 
