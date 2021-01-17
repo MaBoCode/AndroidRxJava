@@ -24,4 +24,5 @@ public class MainActivity extends BaseActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.act_main);
     }
+
 }
