@@ -3,10 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" >
 
+    <data>
+        <variable
+            name="user"
+            type="com.example.androidrxjava.core.user.User" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainFragment" >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/RightGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/BottomGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="32dp" />
 
         <ProgressBar
             android:id="@+id/loader"
@@ -22,6 +49,7 @@
             android:id="@+id/usernameTxtView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{user.username}"
             android:alpha="0"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textAllCaps="true"
@@ -39,7 +67,31 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintTop_toBottomOf="@id/usernameTxtView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lineChart"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="32dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/usersCountTxtView"
+            app:layout_constraintStart_toStartOf="@id/leftGuideline"
+            app:layout_constraintEnd_toEndOf="@id/RightGuideline"
+            app:layout_constraintBottom_toTopOf="@id/btnRefreshData" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRefreshData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/refresh_btn_txt"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/lineChart"
+            app:layout_constraintStart_toStartOf="@id/leftGuideline"
+            app:layout_constraintEnd_toEndOf="@id/RightGuideline"
+            app:layout_constraintBottom_toBottomOf="@id/BottomGuideline" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
