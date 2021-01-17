@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,8 +21,8 @@ import com.example.androidrxjava.core.user.User;
 import com.example.androidrxjava.databinding.FrgMainBinding;
 import com.example.androidrxjava.injects.base.BaseFragment;
 import com.example.androidrxjava.utils.ThemeUtils;
+import com.example.androidrxjava.views.utils.ChartFactory;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -40,6 +42,8 @@ public class MainFragment extends BaseFragment {
     protected FrgMainBinding binding;
 
     protected MainFragmentViewModel viewModel;
+
+    protected LineChart lineChart;
 
     protected View.OnClickListener onRefreshClick = new View.OnClickListener() {
         @Override
@@ -83,10 +87,9 @@ public class MainFragment extends BaseFragment {
                 String usersCount = String.format("%s users", users.size());
                 binding.usersCountTxtView.setText(usersCount);
 
-                setupLineChart();
-                refreshChartData();
-
                 binding.btnRefreshData.setVisibility(View.VISIBLE);
+
+                refreshChartData();
             }
         });
 
@@ -99,38 +102,38 @@ public class MainFragment extends BaseFragment {
         });
     }
 
-    public void setupLineChart() {
-        LineChart lineChart = binding.lineChart;
-        lineChart.setVisibility(View.VISIBLE);
-        lineChart.setTouchEnabled(false);
-        lineChart.setNoDataTextColor(ThemeUtils.getThemeColor(requireContext(), R.attr.colorOnSurface));
-        lineChart.setDrawGridBackground(false);
-        lineChart.getDescription().setEnabled(false);
-        lineChart.getLegend().setEnabled(false);
+    public void initChart() {
+        ChartFactory chartFactory = new ChartFactory();
+        lineChart = chartFactory.getLineChart(requireContext());
 
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setAxisLineWidth(2f);
-        xAxis.setAxisLineColor(ThemeUtils.getThemeColor(requireContext(), R.attr.colorOnSurface));
-        xAxis.setTextColor(ThemeUtils.getThemeColor(requireContext(), R.attr.colorOnSurface));
+        ConstraintLayout parentLayout = (ConstraintLayout) binding.getRoot();
+        lineChart.setId(parentLayout.getChildCount());
 
-        YAxis yAxisRight = lineChart.getAxisRight();
-        yAxisRight.setDrawAxisLine(false);
-        yAxisRight.setAxisMaximum(0);
-        yAxisRight.setAxisMinimum(0);
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(0, 0);
+        layoutParams.setMargins(0, 0, 0, 32);
+        parentLayout.addView(lineChart, parentLayout.getChildCount() - 2, layoutParams);
 
-        YAxis yAxisLeft = lineChart.getAxisLeft();
-        yAxisLeft.setAxisMaximum(100);
-        yAxisLeft.setAxisMinimum(0);
-        yAxisLeft.setDrawGridLines(false);
-        yAxisLeft.setAxisLineWidth(2f);
-        yAxisLeft.setAxisLineColor(ThemeUtils.getThemeColor(requireContext(), R.attr.colorOnSurface));
-        yAxisLeft.setTextColor(ThemeUtils.getThemeColor(requireContext(), R.attr.colorOnSurface));
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(parentLayout);
+
+        constraintSet.connect(R.id.usersCountTxtView, ConstraintSet.BOTTOM, lineChart.getId(), ConstraintSet.TOP);
+
+        constraintSet.connect(lineChart.getId(), ConstraintSet.TOP, R.id.usersCountTxtView, ConstraintSet.BOTTOM);
+        constraintSet.connect(lineChart.getId(), ConstraintSet.START, R.id.leftGuideline, ConstraintSet.START);
+        constraintSet.connect(lineChart.getId(), ConstraintSet.END, R.id.rightGuideline, ConstraintSet.END);
+        constraintSet.connect(lineChart.getId(), ConstraintSet.BOTTOM, R.id.btnRefreshData, ConstraintSet.TOP);
+
+        constraintSet.connect(R.id.btnRefreshData, ConstraintSet.TOP, lineChart.getId(), ConstraintSet.BOTTOM);
+
+        constraintSet.applyTo(parentLayout);
     }
 
     public void refreshChartData() {
-        LineChart lineChart = binding.lineChart;
+
+        if (lineChart == null) {
+            initChart();
+        }
+
         LineData lineData = lineChart.getData();
 
         if (lineData == null) {

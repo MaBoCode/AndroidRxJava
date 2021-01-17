@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lyFrgMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainFragment" >
@@ -22,7 +23,7 @@
             app:layout_constraintGuide_begin="16dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/RightGuideline"
+            android:id="@+id/rightGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -67,29 +68,17 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintTop_toBottomOf="@id/usernameTxtView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/lineChart"/>
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="32dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/usersCountTxtView"
-            app:layout_constraintStart_toStartOf="@id/leftGuideline"
-            app:layout_constraintEnd_toEndOf="@id/RightGuideline"
-            app:layout_constraintBottom_toTopOf="@id/btnRefreshData" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRefreshData"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/refresh_btn_txt"
+            android:fontFamily="@font/quicksand_bold"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/lineChart"
             app:layout_constraintStart_toStartOf="@id/leftGuideline"
-            app:layout_constraintEnd_toEndOf="@id/RightGuideline"
+            app:layout_constraintEnd_toEndOf="@id/rightGuideline"
             app:layout_constraintBottom_toBottomOf="@id/BottomGuideline" />
 
 
