@@ -1,7 +1,5 @@
 package com.example.androidrxjava.views;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,6 +20,7 @@ import com.example.androidrxjava.core.user.User;
 import com.example.androidrxjava.databinding.FrgMainBinding;
 import com.example.androidrxjava.injects.base.BaseFragment;
 import com.example.androidrxjava.utils.ThemeUtils;
+import com.example.androidrxjava.views.utils.AnimationUtils;
 import com.example.androidrxjava.views.utils.ChartFactory;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
@@ -31,6 +31,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.androidannotations.annotations.EFragment;
 
+import java.util.Arrays;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -173,15 +174,13 @@ public class MainFragment extends BaseFragment {
     }
 
     public void startAnimations() {
-        ObjectAnimator usernameTxtViewAnimator = ObjectAnimator.ofFloat(binding.usernameTxtView, "alpha", 0f, 1f);
-        ObjectAnimator userCountTxtViewAnimator = ObjectAnimator.ofFloat(binding.usersCountTxtView, "alpha", 0f, 1f);
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(usernameTxtViewAnimator, userCountTxtViewAnimator);
-        animatorSet.setDuration(300L);
-        animatorSet.setStartDelay(100L);
-
-        animatorSet.start();
+        new AnimationUtils.Builder()
+                .setObjects(Arrays.asList(binding.usersCountTxtView, binding.usernameTxtView))
+                .setAnimateAlphaIn(true)
+                .setTranslationYBegin(-400f)
+                .setInterpolator(new FastOutSlowInInterpolator())
+                .setDelay(300)
+                .start();
     }
 
 }
