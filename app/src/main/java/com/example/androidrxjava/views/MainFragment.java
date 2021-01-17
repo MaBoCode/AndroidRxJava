@@ -64,7 +64,7 @@ public class MainFragment extends BaseFragment {
 
         initObservers();
 
-        Long userId = new Long(1);
+        Long userId = 1;
         viewModel.getUser(userId);
 
         viewModel.getUsers();
