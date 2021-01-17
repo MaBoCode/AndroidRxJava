@@ -38,4 +38,5 @@ public class SplashScreenFragment extends BaseFragment {
 
         return binding.getRoot();
     }
+
 }
