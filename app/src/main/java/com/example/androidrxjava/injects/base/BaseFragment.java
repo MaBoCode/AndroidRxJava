@@ -1,4 +1,4 @@
-package com.example.app_template_java.injects.base;
+package com.example.androidrxjava.injects.base;
 
 import androidx.fragment.app.Fragment;
 

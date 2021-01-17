@@ -1,12 +1,8 @@
-package com.example.app_template_java.injects.modules;
-
-import javax.inject.Singleton;
+package com.example.androidrxjava.injects.modules;
 
 import dagger.Module;
-import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
-import dagger.hilt.components.SingletonComponent;
 
 @Module
 @InstallIn(ApplicationComponent.class)

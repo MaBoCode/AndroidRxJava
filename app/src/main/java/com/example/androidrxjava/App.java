@@ -1,4 +1,4 @@
-package com.example.app_template_java;
+package com.example.androidrxjava;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">app-template-java</string>
+    <string name="app_name">AndroidRxJava</string>
     <string name="splashscreen_title">SplashScreen</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.app_template_java.utils;
+package com.example.androidrxjava.utils;
 
 import android.util.Log;
 

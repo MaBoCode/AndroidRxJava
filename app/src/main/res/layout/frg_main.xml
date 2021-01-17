@@ -8,16 +8,38 @@
         android:layout_height="match_parent"
         tools:context=".MainFragment" >
 
-        <TextView
+        <ProgressBar
+            android:id="@+id/loader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/usernameTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textAllCaps="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/usersCountTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            app:layout_constraintTop_toBottomOf="@id/usernameTxtView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
