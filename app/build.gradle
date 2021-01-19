@@ -53,9 +53,6 @@ def rxAndroidVersion = "3.0.0"
 
 dependencies {
 
-    // MPAndroidChart
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
     // RxJava and RxAndroid
     implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava3:rxandroid:$rxAndroidVersion"
